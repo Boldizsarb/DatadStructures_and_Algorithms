@@ -1,2 +1,3 @@
 # DatadStructures_and_Algorithms
-University / Udemy course 
+
+# Uni Class / JavaScript Algorithms and Data Structures Masterclass
