@@ -13,6 +13,13 @@ app.get("/", (req, res) => {
     res.render("index", { title: "Home" });
 });
 
+app.get("/problemSolving", (req, res) => {
+  res.render("problemSolving", { title: "part4" });
+});
+
+app.get("/patterns", (req, res) => {
+  res.render("patterns", { title: "part5" });
+});
 
 app.listen(port, () => {
     console.log(
