@@ -75,3 +75,52 @@ function validAnagram(str1,str2){
     return true
 }
 console.log("Anagram: "+validAnagram('anagram', 'nagaram'))
+
+
+/////// Multiple Pointers Pattern //////////////
+/* Write a function called sumZero which accepts a sorted array of integers. The function should find the first pair where the sum is 0. Return an array that includes both values that sum to zero or undefined if a pair does not exist   */
+function sumZero(arr){ // two pointers 
+    let left = 0; // on starts at left, index 0
+    let right = arr.length - 1; // the other at the last index of the array ergo the right 
+    while(left < right){
+        let sum = arr[left] + arr[right];
+        if(sum === 0){ // if the sum of those two numbers are zero then if was found 
+            return [arr[left], arr[right]];
+        } else if(sum > 0){ // if the sum is bigger than 0 then 
+            right--; // deducting one from the right ergo mooves one from the right to the left so from the 10 to the 3
+        } else { // the loop runs again and the left did not move yet, now the sum will be -1 (-4,3) so left++ adds an index to the left and it jumps to the -3 from the -4, and the loop runs again. 
+            left++;
+        }
+    }
+}
+//sumZero([-4,-3,-2,-1,0,1,2,3,10]) // function call
+// Time Complexity - O(N)
+// Space Complexity - O(1)
+
+/////// Count Unique Values //////////////
+/* Implement a function called countUniqueValues, which accepts a sorted array, and counts the unique values in the array. There can be negative numbers in the array, but it will always be sorted.    */
+
+
+
+function countUniqueValues(arr){
+    if(arr.length === 0) return 0; // if the array is empty then return 0
+    let i = 0; // left pointer , j is the right pointer
+    for(let j = 1; j < arr.length; j++){ // j is always one ahead of i
+        if(arr[i] !== arr[j]){ // if they are not the same then move the left pointer and change the value of the index to the right pointer
+            i++;
+            arr[i] = arr[j]; // moving the indexes to the right, but i only gets moved when the values are not the same, hence the index of the i will be the number that is unique!!  If the numbers are the same the loop just keeps going until it finds a different number!! 
+        }
+        console.log("i:"+i," j: "+ j); // too look at the indexes 
+    }
+    return i + 1; // i starts at 0 so to get the right number we add 1 since there is always at least one unique value
+}
+
+/* process: 
+            i 
+    [1,1,2,3,3,4,5,6,6,7]
+                    j
+*/ 
+// it is linier time complexity O(n) since we only looping once and constant space complexity O(1)
+// countUniqueValues([1,1,1,2,2,3,4,5,5,5,6,7]) // function call
+
+/////// Sliding Window Pattern ///////////////////////////////////////////
