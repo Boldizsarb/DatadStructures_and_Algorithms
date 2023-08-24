@@ -21,6 +21,10 @@ app.get("/patterns", (req, res) => {
   res.render("patterns", { title: "part5" });
 });
 
+app.get("/recursion", (req, res) => {
+  res.render("recursion", { title: "part5" });
+});
+
 app.listen(port, () => {
     console.log(
       `Example app listening at http://localhost:${port}`,
