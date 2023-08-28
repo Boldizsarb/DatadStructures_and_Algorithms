@@ -64,3 +64,56 @@ function collectOddValues(arr){
                     // [5].concat(collectionOddValues([].slice(1))) -> it will hit the base case and return the newArr
                         // []
    // now we have [1,3,5] in the newArr due to the concat method 
+
+   ///////// Power ///////// 
+
+    function power(base, exponent){
+        if(exponent === 0) return 1;
+        return base * power(base,exponent-1);
+    }
+    //console.log(power(2,2)) // 4
+    // power(2,0) -> 1
+
+    ///////// Factorial /////////
+    function factorial(num){
+        if(num === 0) return 1; // number one since actorial zero (0!) is always 1 !!!!!!!!!
+        return num * factorial(num-1); 
+    }
+    /*
+console.log(factorial(4))
+console.log(factorial(0)) // 1
+console.log(factorial(4)) // 1  
+*/
+
+//////// Product of Array /////////
+
+function productOfArray(arr) {
+    if(arr.length === 0) return 1;
+    return arr[0] * productOfArray(arr.slice(1)); // Multiply the first element by the product of the rest of the array.
+}
+// arr[0] is the first element in the array gets multiplied by the second element in the arraya and so on until the array is empty
+
+//console.log(productOfArray([1,2,3])) // 6
+
+////////// Recursive Range ////////// 
+
+function recursiveRange(num){
+    if(num === 0 ) return 0;
+    return num + recursiveRange(num-1); // num -1 is the number before the number we are on
+}
+//console.log(recursiveRange(10)) // 55
+
+//////// Fibonacci //////////
+
+function fib(num){
+    if (num <= 2) return 1; // base case
+    return fib(num-1) + fib(num-2); // recursive call
+}
+/////
+//////////// reverse strings ////////////
+
+function reverse(str){
+    if(str.length <= 1) return str;
+    return reverse(str.slice(1)) + str[0];  //// Recursive case: Reverse the substring after the first character and then append the first character.
+}
+console.log(reverse('awesome')) // 'emosewa'
