@@ -25,6 +25,14 @@ app.get("/recursion", (req, res) => {
   res.render("recursion", { title: "part5" });
 });
 
+app.get("/search", (req, res) => {
+  res.render("search", { title: "part10" });
+});
+
+app.get("/sorting", (req, res) => {
+  res.render("sorting", { title: "part11" });
+});
+
 app.listen(port, () => {
     console.log(
       `Example app listening at http://localhost:${port}`,

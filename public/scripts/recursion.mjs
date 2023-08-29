@@ -116,4 +116,12 @@ function reverse(str){
     if(str.length <= 1) return str;
     return reverse(str.slice(1)) + str[0];  //// Recursive case: Reverse the substring after the first character and then append the first character.
 }
-console.log(reverse('awesome')) // 'emosewa'
+//console.log(reverse('awesome')) // 'emosewa'
+
+////////// isPalindrome //////////
+function isPalindrome(str){
+    if(str.length === 1) return true;
+    if(str.length === 2) return str[0] === str[1];
+    if(str[0] === str.slice(-1)) return isPalindrome(str.slice(1,-1)) // recursive call
+    return false;
+}
