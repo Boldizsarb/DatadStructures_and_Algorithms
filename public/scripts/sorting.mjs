@@ -114,3 +114,35 @@ function mergeSort(arr){
     let right = mergeSort(arr.slice(mid)); // rifht side from the mid point till the end
     return merge(left, right); // this merges the left and right side of the array
 }
+
+//// Quick Sort ////
+function pivot(arr, start = 0, end = arr.length + 1){
+    function swap(array, i, j){
+        let temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    let pivot = arr[start]; // this is the pivot point
+    let swapIdx = start; // this is the index of the pivot point
+    for(let i = start + 1; i < arr.length; i++){ // this goes through the array
+        if(pivot > arr[i]){ // if the pivot is greater than the number
+            swapIdx++; // increment the swap index
+            swap(arr, swapIdx, i); // swap the numbers
+        }
+    }
+    swap(arr, start, swapIdx); // swap the pivot point with the swap index
+    return swapIdx; // return the swap index
+}
+//console.log(pivot([4,8,2,1,5,7,6,3]));
+
+function quickSort(arr, left = 0, right = arr.length - 1){ // this is the recursive function
+    if(left < right){ // this is the base case
+        let pivotIndex = pivot(arr, left, right); // this is the pivot index
+        // left
+        quickSort(arr, left, pivotIndex - 1); // this is the left side of the array
+        // right
+        quickSort(arr, pivotIndex + 1, right); // this is the right side of the array
+    }
+    return arr;
+}
+console.log(quickSort([4,6,9,1,2,5,3]));
