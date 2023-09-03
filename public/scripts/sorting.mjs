@@ -145,4 +145,41 @@ function quickSort(arr, left = 0, right = arr.length - 1){ // this is the recurs
     }
     return arr;
 }
-console.log(quickSort([4,6,9,1,2,5,3]));
+//console.log(quickSort([4,6,9,1,2,5,3]));
+
+//// Radix Sort ////
+// helper functions ////
+function getDigit(num, i){
+    return Math.floor(Math.abs(num) / Math.pow(10, i)) % 10; // this gets the digit
+}
+//console.log(getDigit(7323, 2));
+
+function digitCount(num){
+    if(num === 0) return 1; // this is the base case
+    return Math.floor(Math.log10(Math.abs(num))) + 1; // this gets the number of digits
+}
+//console.log(digitCount(423));
+
+function mostDigits(nums){
+    let maxDigits = 0; // this is the max number of digits
+    for(let i = 0; i < nums.length; i++){
+        maxDigits = Math.max(maxDigits, digitCount(nums[i])); // this gets the max number of digits
+    }
+    return maxDigits;
+}
+//console.log(mostDigits([23,567,89,12234324,90]));
+// radix sort function ////
+function radixSort(nums){
+    let maxDigitsCount = mostDigits(nums); // this is the max number of digits
+    //console.log(maxDigitsCount);
+    for(let k = 0; k < maxDigitsCount; k++){ // this goes through the number of digits, so if the max number of digits is 3 then it will go through 3 times
+        let digitBuckets = Array.from({length: 10}, () => []); // this creates an array of 10 empty arrays whitihin it
+        for(let i = 0; i < nums.length; i++){ // this goes through the array
+            let digit = getDigit(nums[i],k); // this gets the digit
+            digitBuckets[digit].push(nums[i]); // this pushes the number into the digit bucket
+        }
+        nums = [].concat(...digitBuckets); // this concats the arrays together, the ... is the spread operator
+        // this ensures the numbers are in the right order and the right format
+    }
+}
+console.log(radixSort([23,345,5467,12,2345,9852]));

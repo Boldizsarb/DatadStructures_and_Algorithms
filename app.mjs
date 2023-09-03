@@ -33,6 +33,10 @@ app.get("/sorting", (req, res) => {
   res.render("sorting", { title: "part11" });
 });
 
+app.get("/dataS", (req, res) => {
+  res.render("dataS", { title: "part11" });
+});
+
 app.listen(port, () => {
     console.log(
       `Example app listening at http://localhost:${port}`,
