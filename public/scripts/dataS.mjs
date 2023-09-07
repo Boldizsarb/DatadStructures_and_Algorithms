@@ -46,50 +46,64 @@ console.log(secondStudent.calculateAverage());// accessing the attribute
 */
 
 ///// singly linked list ///////
-
-class Node {
+class Node{
     constructor(val){
         this.val = val;
         this.next = null;
     }
 }
- /*
-let first = new Node("Hi");
-first.next = new Node("there");
-first.next.next = new Node("how");
-first.next.next.next = new Node("are");
-first.next.next.next.next = new Node("you");
-console.log(first);
-console.log(first.next.next.next.next.val);
-*/
-// to substituto the above code we can use a constructor function
-class singlyLinkedList{
-    cunstructor(){
+
+class SinglyLinkedList{
+    constructor(){
         this.head = null; // pointer to the first node in the list
         this.tail = null; // pointer to the last node in the list
         this.length = 0; // length of the list
     }
     push(val){ // inserting at the end of the list new push becomes the tail
-        let newNode = new Node (val); // if there in no head in the list ergo empty list
-        if(!this.head){
+        var newNode = new Node(val); // if there eis no head the new node becomes the list head and tail ergo the list is empty
+        if(!this.head){ // if there is no ergo empty list
             this.head = newNode; // the head and the tail are the same node
             this.tail = this.head; // the head and the tail are the same node
-        }else{ // if there is a head in the list ergo it is not empty
-            this.tail.next = newNode; // the tail points to the new node
-            this.tail = newNode; // the tail becomes the new node
+        } else { // if therer is a list ergo it is not empty
+            this.tail.next = newNode; // the new node becomes the next node of the tail. The tail points to the new node
+            this.tail = newNode;  // the new node becomes the tail
         }
-        this.length++; // increment the length of the list
-        this.tail = newNode; // the tail becomes the new node
+        this.length++; // the length of the list increases by one
+        return this; // the list is returned
     }
     popp(){
-        if(!this.head) return undefined; // if the list is empty return undefined
+        if(!this.head) return undefined; // if there is no head the list is empty and undefined is returned
+        var current = this.head; // the current node is the head
+        var newTail = current; // the new tail is the current node
+        while(current.next){ // while there is a next node
+            newTail = current; // the new tail becomes the current node
+            current = current.next; // the current node becomes the next node
+        }
+        this.tail = newTail;  // the new tail becomes the tail
+        this.tail.next = null; // the next node of the tail is null, it severes the connection to the last node
+        this.length--; 
+        if(this.length === 0){ // if the list is empty
+            this.head = null; // the head is null
+            this.tail = null; // the tail is null
+        }
+        return current; // the current node is returned
+
     }
 }
-let list = new singlyLinkedList();
+
+
+let list = new SinglyLinkedList();
 list.push("HELLO");
 list.push("GOODBYE");
 list.push("99");
 console.log(list);
-console.log(list.head);
-console.log(list.tail);
-console.log(list.head.next);
+list.popp();
+console.log(list);
+// console.log(list.head);
+// console.log(list.tail);
+// console.log(list.head.next);
+
+/* The way popp works:
+    current list: HELLO -> GOODBYE -> 99
+                   NT        C      // NT = next tail C = current tail    C is checking if there is a next tail if so it becomes the new tail, if not NT gets mooved to the next node and C becomes the new tail
+*/
