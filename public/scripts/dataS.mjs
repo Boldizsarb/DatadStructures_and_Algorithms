@@ -71,7 +71,7 @@ class SinglyLinkedList{
         this.length++; // the length of the list increases by one
         return this; // the list is returned
     }
-    popp(){
+    popp(){ // removing the last node of the list
         if(!this.head) return undefined; // if there is no head the list is empty and undefined is returned
         var current = this.head; // the current node is the head
         var newTail = current; // the new tail is the current node
@@ -87,7 +87,63 @@ class SinglyLinkedList{
             this.tail = null; // the tail is null
         }
         return current; // the current node is returned
-
+            /* The way popp works:
+            current list: HELLO -> GOODBYE -> 99
+                   NT        C      // NT = next tail C = current tail    C is checking if there is a next tail if so it becomes the new tail, if not NT gets mooved to the next node and C becomes the new tail
+            */  
+    }
+    shift(){ // removing the first node of the list
+        if(!this.head) return undefined; // if there is no head the list is empty and undefined is returned
+        let currentHead = this.head; // the current head is the head
+        this.head = currentHead.next; // the next node of the head becomes the head 
+        this.length--; // the length of the list decreases by one
+        if(this.length === 0){ // if the list is empty
+            this.head = null; // the head is null
+            this.tail = null; // the tail is null
+        }
+        return currentHead; // the current head is returned
+    }
+    upshift(val){
+        let newNode = new Node(val); // a new node is created
+        if(!this.head){
+            this.head = newNode;
+            this.tail = this.head;
+        }else{ // if there is no else the next node will point to itself! Not Good! hence it needst to be either!!! 
+            newNode.next = this.head; // the new node points to the head
+            this.head = newNode; // the new node becomes the head
+        }
+        this.length++;
+        return this;
+    }
+    get(index){
+        if(index < 0 || index >= this.length) return null; // if the index is out of range null is returned
+        let counter = 0; // the counter is set to 0
+        let current = this.head; // the current node is the head
+        while(counter !== index){ // while the counter is not equal to the index, it is counting from the head like indexes, o, 1, 2, .... until it reaches the index
+            current = current.next; // the current node becomes the next node
+            counter++; // the counter increases by one
+        }
+        return current; // the current node is returned
+    }
+    set(index, val){
+        let foundNode = this.get(index); // the found node is the node at the index
+        if(foundNode){ // if there is a found node
+            foundNode.val = val; // the value of the found node is set to the value
+            return true; // true is returned
+        }
+        return false; // false is returned
+    }
+    insert(index, val){
+        if(index < 0 || index > this.length) return false; // if the index is out of range false is returned
+        if(index === this.length) return !!this.push(val); // if the index is the length of the list the value is pushed to the end of the list
+        if(index === 0) return !!this.upshift(val); // if the index is 0 the value is unshifted to the beginning of the list
+        let newNode = new Node(val); // a new node is created
+        let prev = this.get(index - 1); // the previous node is the node before the index
+        let temp = prev.next; // the temp node is the next node of the previous node
+        prev.next = newNode; // the previous node points to the new node
+        newNode.next = temp; // the new node points to the temp node
+        this.length++; // the length of the list increases by one
+        return true; // true is returned
     }
 }
 
@@ -99,11 +155,12 @@ list.push("99");
 console.log(list);
 list.popp();
 console.log(list);
+list.shift();
+console.log(list);
+list.upshift("NEW HEAD");
+console.log(list);
+console.log(list.get(0));
 // console.log(list.head);
 // console.log(list.tail);
 // console.log(list.head.next);
 
-/* The way popp works:
-    current list: HELLO -> GOODBYE -> 99
-                   NT        C      // NT = next tail C = current tail    C is checking if there is a next tail if so it becomes the new tail, if not NT gets mooved to the next node and C becomes the new tail
-*/
