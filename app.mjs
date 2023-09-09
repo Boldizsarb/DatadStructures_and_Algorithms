@@ -37,6 +37,10 @@ app.get("/dataS", (req, res) => {
   res.render("dataS", { title: "part11" });
 });
 
+app.get("/doubly_linked_list", (req, res) => {
+  res.render("doubley", { title: "part11" });
+});
+
 app.listen(port, () => {
     console.log(
       `Example app listening at http://localhost:${port}`,

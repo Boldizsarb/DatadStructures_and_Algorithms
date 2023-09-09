@@ -143,7 +143,30 @@ class SinglyLinkedList{
         prev.next = newNode; // the previous node points to the new node
         newNode.next = temp; // the new node points to the temp node
         this.length++; // the length of the list increases by one
-        return true; // true is returned
+        return true; // true is returned 
+    }
+    remove(index){
+    if(index < 0 || index >= this.length) return undefined; // if the index is out of range undefined is returned
+    if(index === 0) return this.shift(); // if the index is 0 the first node is removed
+    if(index === this.length - 1) return this.popp(); // if the index is the length of the list minus one the last node is removed
+    let previousNode = this.get(index - 1); // the previous node is the node before the index
+    let removed = previousNode.next; // the removed node is the next node of the previous node
+    previousNode.next = removed.next; // the previous node points to the next node of the removed node
+    return removed; // the removed node is returned
+    }
+    reverse(){
+        let node = this.head; // the node is the head
+        this.head = this.tail; // the head becomes the tail
+        this.tail = node; // the tail becomes the node
+        let next; // the next node is declared
+        let prev = null; // the previous node is null
+        for(let i = 0; i < this.length; i++){ // for loop
+            next = node.next; // the next node is the next node of the node
+            node.next = prev; // the node points to the previous node
+            prev = node; // the previous node becomes the node
+            node = next; // the node becomes the next node
+        }
+        return this; // the list is returned
     }
 }
 
@@ -160,6 +183,13 @@ console.log(list);
 list.upshift("NEW HEAD");
 console.log(list);
 console.log(list.get(0));
+list.insert(1, "NEW NODE");
+list.insert(2, "whoow");
+console.log(list.get(2));
+console.log(list);
+//list.reverse();
+console.log(list.reverse());
+
 // console.log(list.head);
 // console.log(list.tail);
 // console.log(list.head.next);
