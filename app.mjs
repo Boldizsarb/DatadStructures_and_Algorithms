@@ -41,6 +41,14 @@ app.get("/doubly_linked_list", (req, res) => {
   res.render("doubley", { title: "part11" });
 });
 
+app.get("/stacks", (req, res) => {
+  res.render("stacks", { title: "part11" });
+});
+
+app.get("/binary_tree", (req, res) => {
+  res.render("binary_tree", { title: "part11" });
+});
+
 app.listen(port, () => {
     console.log(
       `Example app listening at http://localhost:${port}`,
