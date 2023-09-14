@@ -49,6 +49,14 @@ app.get("/binary_tree", (req, res) => {
   res.render("binary_tree", { title: "part11" });
 });
 
+app.get("/heaps", (req, res) => {
+  res.render("heaps", { title: "part11" });
+});
+
+app.get("/hash_tables", (req, res) => {
+  res.render("hash_tables", { title: "part11" });
+});
+
 app.listen(port, () => {
     console.log(
       `Example app listening at http://localhost:${port}`,
