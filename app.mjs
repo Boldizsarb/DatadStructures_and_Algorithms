@@ -57,6 +57,11 @@ app.get("/hash_tables", (req, res) => {
   res.render("hash_tables", { title: "part11" });
 });
 
+app.get("/graphs", (req, res) => {
+  res.render("graphs", { title: "part11" });
+});
+
+
 app.listen(port, () => {
     console.log(
       `Example app listening at http://localhost:${port}`,
