@@ -63,14 +63,99 @@ class Graph {
         }
         return result // return the result array
     } // traverse the graph iteratively
+    breadthFirst(start){
+        const queue = [start] // create a queue with the start vertex
+        const result = [] // create a result array
+        const visited = {} // create a visited vertex object
+        let currentVertex // create a current vertex variable
+        visited[start] = true // mark the start vertex as visited
+        while(queue.length){ // while the queue is not empty
+            currentVertex = queue.shift() // shift off the first element in the queue
+            result.push(currentVertex) // push the current vertex into the result array
+            this.adjacencyList[currentVertex].forEach(neighbor => { // for each neighbor of the current vertex
+                if(!visited[neighbor]){ // if the neighbor has not been visited
+                    visited[neighbor] = true // mark the neighbor as visited
+                    queue.push(neighbor) // push the neighbor into the queue
+                }
+            })
+        }
+        return result // return the result array
+    } // traverse the graph iteratively
+
     
 
 }
-let g = new Graph()
-g.addVertex("Tokyo")
-g.addVertex("Dallas")
-g.addVertex("Aspen")
-g.addEdge("Tokyo", "Dallas")
-g.addEdge("Dallas", "Aspen")
-console.log(g)
-console.log(g.depthFirstRecursive("Tokyo"))
+// let g = new Graph()
+// g.addVertex("Tokyo")
+// g.addVertex("Dallas")
+// g.addVertex("Aspen")
+// g.addEdge("Tokyo", "Dallas")
+// g.addEdge("Dallas", "Aspen")
+// console.log(g)
+// console.log(g.depthFirstRecursive("Tokyo"))
+
+// weighted graph//////// weighted graph   
+
+class PriorityQueue {
+    constructor(){
+      this.values = [];
+    }
+    enqueue(val, priority) {
+      this.values.push({val, priority});
+      this.sort();
+    };
+    dequeue() {
+      return this.values.shift();
+    };
+    sort() {
+      this.values.sort((a, b) => a.priority - b.priority);
+    };
+  }
+
+
+class WeightedGraph {
+    constructor(){
+        this.adjacencyList = {};
+    }
+    addVertex(vertex){
+        if(!this.adjacencyList[vertex]) this.adjacencyList[vertex] = []
+    }
+    addEdge(vertex1, vertex2, weight){
+        this.adjacencyList[vertex1].push({node: vertex2, weight}) // push vertex2 into vertex1's array with a weight
+        this.adjacencyList[vertex2].push({node: vertex1, weight}) // push vertex1 into vertex2's array
+    }
+    Dijkstra(start, finish){ // find the shortest path between two vertices
+        const nodes = new PriorityQueue() // create a priority queue
+        const distances = {} // create a distances object
+        const previous = {} // create a previous object
+        // build up initial state building the entire graph
+        for(let vertex in this.adjacencyList){ // for each vertex in the adjacency list /// initialize the distances and previous objects to contain all vertices!!!!!
+            if(vertex === start){ // if the vertex is the start vertex
+                distances[vertex] = 0 // set the distance to 0
+                nodes.enqueue(vertex, 0) // enqueue the vertex with a priority of 0
+            } else { // else
+                distances[vertex] = Infinity // set the distance to infinity
+                nodes.enqueue(vertex, Infinity) // enqueue the vertex with a priority of infinity since we dont know the distance yet
+            }
+            previous[vertex] = null //  need to set previous ofthat node of that vertex to be null.
+        }
+
+    }
+}
+
+var graph = new WeightedGraph()
+graph.addVertex("A");
+graph.addVertex("B");
+graph.addVertex("C");
+graph.addVertex("D");
+graph.addVertex("E");
+graph.addVertex("F");
+
+graph.addEdge("A","B", 4);
+graph.addEdge("A","C", 2);
+graph.addEdge("B","E", 3);
+graph.addEdge("C","D", 2);
+graph.addEdge("C","F", 4);
+graph.addEdge("D","E", 3);
+graph.addEdge("D","F", 1);
+graph.addEdge("E","F", 1);
