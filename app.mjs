@@ -61,6 +61,9 @@ app.get("/graphs", (req, res) => {
   res.render("graphs", { title: "part11" });
 });
 
+app.get("/dinamic_programming", (req, res) => {
+  res.render("dinamic_programming", { title: "part11" });
+});
 
 app.listen(port, () => {
     console.log(
